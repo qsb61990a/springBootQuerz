@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winter.mapper.QuartzConfigMapper">
+  <resultMap id="BaseResultMap" type="com.winter.model.QuartzConfig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="group" jdbcType="VARCHAR" property="group" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="cron" jdbcType="VARCHAR" property="cron" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="quartz_class" jdbcType="VARCHAR" property="quartzClass" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from quartz_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.winter.model.QuartzConfig">
+    insert into quartz_config (id, `group`, `name`, 
+      cron, `status`, msg, 
+      quartz_class)
+    values (#{id,jdbcType=BIGINT}, #{group,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{cron,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{msg,jdbcType=VARCHAR}, 
+      #{quartzClass,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.winter.model.QuartzConfig">
+    update quartz_config
+    set `group` = #{group,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      msg = #{msg,jdbcType=VARCHAR},
+      quartz_class = #{quartzClass,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, `group`, `name`, cron, `status`, msg, quartz_class
+    from quartz_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, `group`, `name`, cron, `status`, msg, quartz_class
+    from quartz_config
+  </select>
+  <!--测试新增任务-->
+  <insert id="addJob" parameterType="com.winter.model.QuartzConfig">
+    insert into quartz_config (id, `group`, `name`,
+    cron, `status`, msg,
+    quartz_class)
+    values (#{id,jdbcType=BIGINT}, #{group,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+    #{cron,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{msg,jdbcType=VARCHAR},
+    #{quartzClass,jdbcType=VARCHAR})
+  </insert>
+</mapper>
